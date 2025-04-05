@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jay Joshi | Cyber Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            background: black;
+            color: #00ff41;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            color: #00ff41;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 255, 65, 0.2);
+        }
+
+        header h1 {
+            margin-left: 20px;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            text-shadow: 0 0 5px #00ff41, 0 0 10px #00ff41;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #00ff41;
+            margin: 0 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        nav a:hover {
+            background: rgba(0, 255, 65, 0.1);
+            transform: scale(1.1);
+        }
+
+        /* Matrix Background Effect */
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 5px #00ff41, 0 0 10px #00ff41;
+        }
+
+        /* Slide 1: About Me */
+        #slide-1 img {
+            width: 300px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 255, 65, 0.5);
+            margin-bottom: 20px;
+        }
+
+        /* Slide 2: Skills */
+        #slide-2 .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            max-width: 900px;
+        }
+
+        .skill {
+            background: rgba(0, 255, 65, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 255, 65, 0.2);
+            transition: transform 0.3s;
+            flex: 1 1 calc(25% - 20px);
+            min-width: 120px;
+            border: 1px solid rgba(0, 255, 65, 0.5);
+        }
+
+        .skill:hover {
+            transform: scale(1.1);
+            background: rgba(0, 255, 65, 0.2);
+        }
+
+        .skill img {
+            width: 50px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        /* Slide 3: Projects */
+        #slide-3 .projects-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            max-width: 1200px;
+        }
+
+        .project-card {
+            background: rgba(0, 255, 65, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 10px 20px rgba(0, 255, 65, 0.2);
+            transition: transform 0.3s;
+            border: 1px solid rgba(0, 255, 65, 0.5);
+            text-align: left;
+        }
+
+        .project-card:hover {
+            transform: scale(1.03);
+        }
+
+        .project-card h3 {
+            color: #00ff41;
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+
+        .project-card p {
+            margin-bottom: 20px;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .project-link {
+            color: #00ff41;
+            text-decoration: none;
+            padding: 8px 15px;
+            border: 1px solid #00ff41;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .project-link:hover {
+            background: rgba(0, 255, 65, 0.3);
+            transform: scale(1.05);
+        }
+
+        /* Slide 4: Contact - WhatsApp Only */
+        .whatsapp-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 30px;
+            background: rgba(0, 255, 65, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 65, 0.5);
+            max-width: 500px;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        .whatsapp-container:hover {
+            transform: scale(1.03);
+            background: rgba(0, 255, 65, 0.2);
+        }
+
+        .whatsapp-icon {
+            font-size: 3rem;
+            color: #25D366;
+        }
+
+        .whatsapp-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            background-color: #25D366;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .whatsapp-link:hover {
+            background-color: #128C7E;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .skill {
+                flex: 1 1 calc(50% - 20px);
+            }
+            
+            .project-card {
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Jay Joshi</h1>
+        <nav>
+            <a href="#slide-1">About</a>
+            <a href="#slide-2">Skills</a>
+            <a href="#slide-3">Projects</a>
+            <a href="#slide-4">Contact</a>
+        </nav>
+    </header>
+
+    <canvas id="matrix"></canvas>
+
+    <!-- Slides -->
+    <section id="slide-1">
+        <h2>Welcome to My Cyber Portfolio</h2>
+        <p>Hi, I'm Jay Joshi, a passionate software developer.</p>
+        <img src="photo.jpg" alt="Jay Joshi">
+    </section>
+
+    <section id="slide-2">
+        <h2>My Skills</h2>
+        <div class="skills-container">
+            <div class="skill"><img src="html-5.png" alt="HTML"><p>HTML</p></div>
+            <div class="skill"><img src="css-3.png" alt="CSS"><p>CSS</p></div>
+            <div class="skill"><img src="java-script.png" alt="JavaScript"><p>JavaScript</p></div>
+            <div class="skill"><img src="mysql.png" alt="mysql"><p>MySQL</p></div>
+            <div class="skill"><img src="java.png" alt="java"><p>Java</p></div>
+            <div class="skill"><img src="python.png" alt="python"><p>Python</p></div>
+        </div>
+    </section>
+
+    <section id="slide-3">
+        <h2>My Projects</h2>
+        <div class="projects-container">
+            <div class="project-card">
+                <h3>Canteen Management System</h3>
+                <p>A comprehensive web application designed to streamline canteen operations, including order management and reporting features.</p>
+                <div class="project-links">
+                    <a href="https://github.com/jay-200511/COLL-PROJECT7977" class="project-link" target="_blank">GitHub Repository</a>
+                    <a href="https://jay-200511.github.io/COLL-PROJECT7977/" class="project-link" target="_blank">Live Demo</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <h3>Event Management System</h3>
+                <p>A comprehensive web application designed to manage events, where organizers can select venues with time and date, and participants can register and provide feedback after events.</p>
+                <div class="project-links">
+                    <a href="https://github.com/jay-200511/event-management" class="project-link" target="_blank">GitHub Repository</a>
+                    <a href="https://jay-200511.github.io/event-management/" class="project-link" target="_blank">Live Demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="slide-4">
+        <h2>Contact Me</h2>
+        <div class="whatsapp-container">
+            <i class="fab fa-whatsapp whatsapp-icon"></i>
+            <h3>Message me on WhatsApp</h3>
+            <a href="https://wa.me/917977668088" class="whatsapp-link" target="_blank">
+                <i class="fab fa-whatsapp"></i> Start Chat
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // Matrix Background Effect
+        const canvas = document.getElementById("matrix");
+        const ctx = canvas.getContext("2d");
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+
+        const drops = Array(Math.floor(columns)).fill(1);
+
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = "#00ff41";
+            ctx.font = `${fontSize}px monospace`;
+
+            drops.forEach((y, x) => {
+                const text = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillText(text, x * fontSize, y * fontSize);
+
+                if (y * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[x] = 0;
+                }
+
+                drops[x]++;
+            });
+        }
+
+        setInterval(draw, 50);
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+        
+        gsap.from("header", { 
+            y: -50, 
+            opacity: 0, 
+            duration: 1 
+        });
+
+        gsap.from("#slide-1 img", { 
+            scale: 0.5, 
+            opacity: 0, 
+            duration: 1, 
+            delay: 0.5 
+        });
+
+        // Animate each section when scrolled to
+        document.querySelectorAll('section').forEach((section, index) => {
+            gsap.from(section, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                delay: index * 0.1
+            });
+        });
+    </script>
+</body>
+</html>
